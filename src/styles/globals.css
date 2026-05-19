@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Sora:wght@300;400;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Variables ──────────────────────────────────────── */
+:root {
+  --neon:         #00ff8c;
+  --neon-dim:     rgba(0, 255, 140, 0.55);
+  --neon-muted:   rgba(0, 255, 140, 0.10);
+  --neon-border:  rgba(0, 255, 140, 0.18);
+  --neon-border2: rgba(0, 255, 140, 0.35);
+  --bg:           #080c10;
+  --surface:      #0d1117;
+  --surface2:     #111820;
+  --ink:          #c9d6e3;
+  --ink-muted:    #6a7f8f;
+  --amber:        #f5a623;
+  --red:          #ff4d4d;
+  --blue:         #4fa3ff;
+}
+
+/* ─── Base ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Sora', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ─── Scanline overlay ───────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.025) 2px,
+    rgba(0, 0, 0, 0.025) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ─── Selection ──────────────────────────────────────────── */
+::selection {
+  background: var(--neon);
+  color: #080c10;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--neon-border2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--neon); }
+
+/* ─── Reusable classes ───────────────────────────────────── */
+@layer components {
+
+  .section-wrap {
+    @apply max-w-5xl mx-auto px-6 py-20;
+  }
+
+  .section-header {
+    @apply flex items-center gap-4 mb-12;
+  }
+
+  .section-tag {
+    font-family: 'Share Tech Mono', monospace;
+    @apply text-xs tracking-widest uppercase;
+    color: var(--neon);
+  }
+
+  .section-title {
+    @apply text-3xl font-bold text-white tracking-tight;
+  }
+
+  .section-line {
+    @apply flex-1 h-px max-w-xs;
+    background: var(--neon-border);
+  }
+
+  .badge-neon {
+    font-family: 'Share Tech Mono', monospace;
+    @apply inline-flex items-center gap-2 text-xs tracking-widest uppercase px-4 py-1.5;
+    color: var(--neon);
+    border: 1px solid var(--neon-border2);
+    background: var(--neon-muted);
+    clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+  }
+
+  .btn-primary {
+    font-family: 'Share Tech Mono', monospace;
+    @apply inline-block text-xs tracking-widest uppercase px-7 py-3 font-bold transition-all duration-200 cursor-pointer;
+    background: var(--neon);
+    color: #080c10;
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  }
+  .btn-primary:hover { background: #fff; transform: translateY(-2px); }
+
+  .btn-outline {
+    font-family: 'Share Tech Mono', monospace;
+    @apply inline-block text-xs tracking-widest uppercase px-7 py-3 transition-all duration-200 cursor-pointer;
+    color: var(--neon);
+    border: 1px solid var(--neon-border2);
+  }
+  .btn-outline:hover { background: var(--neon-muted); border-color: var(--neon); }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--neon-border);
+    @apply rounded-sm transition-all duration-200;
+  }
+  .card:hover { border-color: var(--neon-border2); }
+
+  .skill-tag {
+    font-family: 'Share Tech Mono', monospace;
+    @apply text-xs px-2.5 py-1 rounded-sm transition-all duration-150;
+    border: 1px solid var(--neon-border);
+    color: var(--ink-muted);
+  }
+  .skill-tag:hover { border-color: var(--neon); color: var(--neon); background: var(--neon-muted); }
+
+  .skill-tag-amber {
+    font-family: 'Share Tech Mono', monospace;
+    @apply text-xs px-2.5 py-1 rounded-sm;
+    border: 1px solid rgba(245,166,35,0.3);
+    color: var(--amber);
+  }
+
+  .skill-tag-red {
+    font-family: 'Share Tech Mono', monospace;
+    @apply text-xs px-2.5 py-1 rounded-sm;
+    border: 1px solid rgba(255,77,77,0.25);
+    color: var(--red);
+  }
+
+  .skill-tag-blue {
+    font-family: 'Share Tech Mono', monospace;
+    @apply text-xs px-2.5 py-1 rounded-sm;
+    border: 1px solid rgba(79,163,255,0.25);
+    color: var(--blue);
+  }
+
+  .job-tag {
+    font-family: 'Share Tech Mono', monospace;
+    @apply text-xs px-2.5 py-1 tracking-wide;
+    background: var(--neon-muted);
+    color: var(--neon);
+    border: 1px solid var(--neon-border2);
+  }
+
+  .cursor {
+    @apply inline-block w-2 h-3.5 align-middle animate-blink;
+    background: var(--neon);
+  }
+}
